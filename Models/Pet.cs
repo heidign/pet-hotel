@@ -36,7 +36,7 @@ namespace pet_hotel
         public DateTime checkedinAt {get; set;}
 
         [ForeignKey("petOwner")]
-        public int petOwnerid {get; set;}
+        public int petOwnerId {get; set;}
 
         public PetOwner petOwner {get; set;}
     }
