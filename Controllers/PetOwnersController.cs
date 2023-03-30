@@ -40,6 +40,25 @@ namespace pet_hotel.Controllers
             // return CreatedAtAction(nameof(GetById), new {id = newPetOwner.id}, newPetOwner);
         }
 
+    //! PUT action
+        // this method takes in an id and a petOwner object as input parameters
+        // the id parameter identifies the particular petOwner record to update
+        [HttpPut("{id}")]
+        public PetOwner Put(int id, PetOwner petOwner)
+        {
+            // set the ID property of the petOwner object to match the provided id parameter
+            petOwner.id = id;
+            
+            // update the changed petOwner record in the database
+            _context.Update(petOwner);
+            
+            // save the changes to the database
+            _context.SaveChanges();
+            
+            // return the updated petOwner object
+            return petOwner; 
+        }
+        
 
     //! DELETE action 
     // this method will handle 'DELETE' requests to the API endpoint with a parameter 'id'

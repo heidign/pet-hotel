@@ -141,5 +141,28 @@ namespace pet_hotel.Controllers
             
             return newPet;
         }
+
+
+
+    //! PUT action
+       // this method takes in an id and a pet object as input parameters
+       // the id parameter identifies the specific pet record to update
+       [HttpPut("{id}")]
+       public Pet Put(int id, Pet pet)
+       {
+           // set the ID property of the pet object to match the provided id parameter
+           pet.id = id;
+       
+           // update the changed pet record in the database
+           _context.Update(pet);
+       
+           // save the changes to the database
+           _context.SaveChanges();
+       
+           // return the updated pet object
+           return pet;
+       }
+       
+
     }
 }
