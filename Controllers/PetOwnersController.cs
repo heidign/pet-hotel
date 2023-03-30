@@ -29,7 +29,12 @@ namespace pet_hotel.Controllers
         [HttpGet("{id}")]
         public ActionResult<PetOwner> GetById(int id)
         {
-           PetOwner petOwner = _context.PetOwners.SingleOrDefault(p => p.id == id);
+            PetOwner petOwner = _context.PetOwners.SingleOrDefault(p => p.id == id);
+
+            if (petOwner is null)
+            {
+                return NotFound();
+            }
             return petOwner;
         }
 
