@@ -10,8 +10,8 @@ using pet_hotel.Models;
 namespace dotnet_bakery.Migrations
 {
     [DbContext(typeof(ApplicationContext))]
-    [Migration("20230330001650_CreatePetsTable")]
-    partial class CreatePetsTable
+    [Migration("20230330150828_CreateTables")]
+    partial class CreateTables
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -31,7 +31,7 @@ namespace dotnet_bakery.Migrations
                     b.Property<int>("breed")
                         .HasColumnType("integer");
 
-                    b.Property<DateTime>("checkedinAt")
+                    b.Property<DateTime?>("checkedinAt")
                         .HasColumnType("timestamp without time zone");
 
                     b.Property<int>("color")
@@ -40,12 +40,12 @@ namespace dotnet_bakery.Migrations
                     b.Property<string>("name")
                         .HasColumnType("text");
 
-                    b.Property<int>("petOwnerid")
+                    b.Property<int>("petOwnerId")
                         .HasColumnType("integer");
 
                     b.HasKey("id");
 
-                    b.HasIndex("petOwnerid");
+                    b.HasIndex("petOwnerId");
 
                     b.ToTable("Pets");
                 });
@@ -77,7 +77,7 @@ namespace dotnet_bakery.Migrations
                 {
                     b.HasOne("pet_hotel.PetOwner", "petOwner")
                         .WithMany()
-                        .HasForeignKey("petOwnerid")
+                        .HasForeignKey("petOwnerId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
