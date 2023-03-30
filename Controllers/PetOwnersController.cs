@@ -31,13 +31,13 @@ namespace pet_hotel.Controllers
         }
 
         [HttpPost]
-        public PetOwner Post(PetOwner newPetOwner) {
+        public IActionResult Post(PetOwner newPetOwner) {
             _context.Add(newPetOwner);
             _context.SaveChanges();
 
-            return newPetOwner;
+            // return StatusCode(201, newPetOwner);
             
-            // return CreatedAtAction(nameof(GetById), new {id = newPetOwner.id}, newPetOwner);
+            return CreatedAtAction(nameof(GetById), new {id = newPetOwner.id}, newPetOwner);
         }
 
 

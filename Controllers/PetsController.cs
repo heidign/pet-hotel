@@ -76,11 +76,11 @@ namespace pet_hotel.Controllers
         // }
 
         [HttpPost]
-        public Pet Post(Pet newPet) {
+        public IActionResult Post(Pet newPet) {
             _context.Add(newPet);
             _context.SaveChanges();
             
-            return newPet;
+            return CreatedAtAction(nameof(GetById), new {id = newPet.id}, newPet);
         }
 
 
