@@ -25,7 +25,26 @@ namespace pet_hotel.Controllers
         public IEnumerable<Pet> GetPets() {
             return new List<Pet>();
         }
-
+        
+    //! DELETE action
+    //Delete api/pets
+        // this method handles 'DELETE' requests to the API endpoint with a parameter 'id'
+        [HttpDelete("{id}")]
+        public ActionResult<Pet> Delete(int id)
+        {
+            // find the record in the database by its ID
+            Pet pet = _context.Pets.Find(id);
+        
+            // if record is found, remove the selected pet from the database 
+            _context.Pets.Remove(pet);
+        
+            // save the changes made to the database
+            _context.SaveChanges();
+        
+            // return status code 204 indicating successful deletion of the record
+            return StatusCode(204);
+        }
+        
         // [HttpGet]
         // [Route("test")]
         // public IEnumerable<Pet> GetPets() {
