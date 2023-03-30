@@ -29,5 +29,15 @@ namespace pet_hotel.Controllers
              _context.PetOwners.SingleOrDefault(p => p.id == id);
              return petOwner;
         }
+
+        [HttpPost]
+        public PetOwner Post(PetOwner newPetOwner) {
+            _context.Add(newPetOwner);
+            _context.SaveChanges();
+
+            return newPetOwner;
+            
+            // return CreatedAtAction(nameof(GetById), new {id = newPetOwner.id}, newPetOwner);
+        }
     }
 }
