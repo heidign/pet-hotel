@@ -39,5 +39,25 @@ namespace pet_hotel.Controllers
             
             // return CreatedAtAction(nameof(GetById), new {id = newPetOwner.id}, newPetOwner);
         }
+
+
+    //! DELETE action 
+    // this method will handle 'DELETE' requests to the API endpoint with a parameter 'id'
+    [HttpDelete("{id}")]
+    public ActionResult<PetOwner> Delete(int id)
+    {
+        // find the record in the database by its ID
+        PetOwner petOwner = _context.PetOwners.Find(id);
+    
+        // ff record is found, remove the selected PetOwner from the database 
+        _context.PetOwners.Remove(petOwner);
+    
+        // save the changes made to the database
+        _context.SaveChanges();
+    
+        // return status code 204 indicating successful deletion of the record
+        return StatusCode(204);
+    }
+    
     }
 }
