@@ -23,11 +23,35 @@ namespace pet_hotel.Controllers
         // This is just a stub for GET / to prevent any weird frontend errors that 
         // occur when the route is missing in this controller
         [HttpGet]
-        public IEnumerable<Pet> GetPets()
-        {
-            return new List<Pet>();
+        public IEnumerable<Pet> GetPets() {
+            return _context.Pets.Include(pet => pet.petOwner);
         }
 
+        [HttpGet("{id}")]
+        public ActionResult<Pet> GetById(int id, Pet pet) {
+             _context.Pets.SingleOrDefault(p => p.id == id);
+             return pet;
+        }
+        
+    //! DELETE action
+    //Delete api/pets
+        // this method handles 'DELETE' requests to the API endpoint with a parameter 'id'
+        [HttpDelete("{id}")]
+        public ActionResult<Pet> Delete(int id)
+        {
+            // find the record in the database by its ID
+            Pet pet = _context.Pets.Find(id);
+        
+            // if record is found, remove the selected pet from the database 
+            _context.Pets.Remove(pet);
+        
+            // save the changes made to the database
+            _context.SaveChanges();
+        
+            // return status code 204 indicating successful deletion of the record
+            return StatusCode(204);
+        }
+        
         // [HttpGet]
         // [Route("api/[controller]")]
         // public IEnumerable<Pet> GetPets()
@@ -109,6 +133,13 @@ namespace pet_hotel.Controllers
             _context.SaveChanges();
 
             return Ok(pet);
+        }
+        [HttpPost]
+        public Pet Post(Pet newPet) {
+            _context.Add(newPet);
+            _context.SaveChanges();
+            
+            return newPet;
         }
     }
 }
