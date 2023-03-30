@@ -80,9 +80,9 @@ namespace pet_hotel.Controllers
             Console.WriteLine("test");
 
             Pet pet = _context.Pets.SingleOrDefault(pet => pet.id == id);
-            
+
             pet.checkedInAt = DateTime.Now;
-   
+
             _context.Update(pet);
 
             // save changes to pet object in db
@@ -94,10 +94,11 @@ namespace pet_hotel.Controllers
 
         // * Put check out * //
         [HttpPut("{id}/checkout")]
+        
         public IActionResult PutCheckOut(int id)
         {
             Console.WriteLine("test");
-        
+
             Pet pet = _context.Pets.Find(id);
 
             pet.checkedInAt = null;
@@ -109,7 +110,5 @@ namespace pet_hotel.Controllers
 
             return Ok(pet);
         }
-
-
     }
 }
