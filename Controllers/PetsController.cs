@@ -23,7 +23,13 @@ namespace pet_hotel.Controllers
         // occur when the route is missing in this controller
         [HttpGet]
         public IEnumerable<Pet> GetPets() {
-            return new List<Pet>();
+            return _context.Pets.Include(pet => pet.petOwner);
+        }
+
+        [HttpGet("{id}")]
+        public ActionResult<Pet> GetById(int id, Pet pet) {
+             _context.Pets.SingleOrDefault(p => p.id == id);
+             return pet;
         }
         
     //! DELETE action
@@ -68,5 +74,15 @@ namespace pet_hotel.Controllers
 
         //     return new List<Pet>{ newPet1, newPet2};
         // }
+
+        [HttpPost]
+        public Pet Post(Pet newPet) {
+            _context.Add(newPet);
+            _context.SaveChanges();
+            
+            return newPet;
+        }
+
+
     }
 }
