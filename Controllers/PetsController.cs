@@ -23,62 +23,36 @@ namespace pet_hotel.Controllers
         // This is just a stub for GET / to prevent any weird frontend errors that 
         // occur when the route is missing in this controller
         [HttpGet]
-        public IEnumerable<Pet> GetPets() {
+        public IEnumerable<Pet> GetPets()
+        {
             return _context.Pets.Include(pet => pet.petOwner);
         }
 
         [HttpGet("{id}")]
-        public ActionResult<Pet> GetById(int id, Pet pet) {
-             _context.Pets.SingleOrDefault(p => p.id == id);
-             return pet;
+        public ActionResult<Pet> GetById(int id, Pet pet)
+        {
+            _context.Pets.SingleOrDefault(p => p.id == id);
+            return pet;
         }
-        
-    //! DELETE action
-    //Delete api/pets
+
+        //! DELETE action
+        //Delete api/pets
         // this method handles 'DELETE' requests to the API endpoint with a parameter 'id'
         [HttpDelete("{id}")]
         public ActionResult<Pet> Delete(int id)
         {
             // find the record in the database by its ID
             Pet pet = _context.Pets.Find(id);
-        
+
             // if record is found, remove the selected pet from the database 
             _context.Pets.Remove(pet);
-        
+
             // save the changes made to the database
             _context.SaveChanges();
-        
+
             // return status code 204 indicating successful deletion of the record
             return StatusCode(204);
         }
-        
-        // [HttpGet]
-        // [Route("api/[controller]")]
-        // public IEnumerable<Pet> GetPets()
-        // {
-        //     PetOwner blaine = new PetOwner
-        //     {
-        //         name = "Blaine"
-        //     };
-
-        //     Pet newPet1 = new Pet
-        //     {
-        //         name = "Big Dog",
-        //         petOwner = blaine,
-        //         color = PetColorType.Black,
-        //         breed = PetBreedType.Poodle,
-        //     };
-
-        //     Pet newPet2 = new Pet
-        //     {
-        //         name = "Little Dog",
-        //         petOwner = blaine,
-        //         color = PetColorType.Golden,
-        //         breed = PetBreedType.Labrador,
-        //     };
-
-        //     return new List<Pet> { newPet1, newPet2 };
-        // }
 
         // * Put by id * //
         [HttpPut("{id}")]
@@ -118,7 +92,7 @@ namespace pet_hotel.Controllers
 
         // * Put check out * //
         [HttpPut("{id}/checkout")]
-        
+
         public IActionResult PutCheckOut(int id)
         {
             Console.WriteLine("test");
@@ -135,34 +109,13 @@ namespace pet_hotel.Controllers
             return Ok(pet);
         }
         [HttpPost]
-        public IActionResult Post(Pet newPet) {
+        public IActionResult Post(Pet newPet)
+        {
             _context.Add(newPet);
             _context.SaveChanges();
-            
-            return CreatedAtAction(nameof(GetById), new {id = newPet.id}, newPet);
+
+            return CreatedAtAction(nameof(GetById), new { id = newPet.id }, newPet);
         }
-
-
-
-    //! PUT action
-       // this method takes in an id and a pet object as input parameters
-       // the id parameter identifies the specific pet record to update
-       [HttpPut("{id}")]
-       public Pet Put(int id, Pet pet)
-       {
-           // set the ID property of the pet object to match the provided id parameter
-           pet.id = id;
-       
-           // update the changed pet record in the database
-           _context.Update(pet);
-       
-           // save the changes to the database
-           _context.SaveChanges();
-       
-           // return the updated pet object
-           return pet;
-       }
-       
 
     }
 }
